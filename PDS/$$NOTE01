@@ -1,0 +1,24 @@
+Subject:  DATOC
+From:     Reed Starnes <rxstarn@gmail.com>
+Date:     3/5/2021, 6:13 PM
+To:       "Golob, Sam" <sbgolob@cbttape.org>
+
+Sam--
+
+I found one more old program, also from UNC Computation Center
+(or maybe TUCC) back in the dark ages.  I didn't see it anywhere
+else on CBT.  It's called DATOC and is a batch program for
+changing DCB attributes of a DASD file on the fly (RECFM, LRECL,
+BLKSIZE, EXPDT, space, etc.).  You code the values you want on a
+DD statement, and it opens the file and forces those values into
+the F1DSCB -- something you probably wouldn't want to do unless
+the file were broken in the first place.  The FIXPDS function of
+PDS86/STARTOOL can do the same, but this one is batch.
+
+It has to be authorized, so I put it into SYS1.CBT.LINKLIB for
+testing, and it's still there.
+
+Enjoy.
+
+Reed
+
