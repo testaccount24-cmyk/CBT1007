@@ -1,0 +1,74 @@
+DATOC is a batch program for altering fields in dataset control
+blocks (DSCBs) of existing files on DASD volumes.  There are TSO
+tools such as STARTOOL and PDS86 which can do the same thing, but
+this one is for batch.
+
+The fields that can be changed are:
+
+   SPACE:   Secondary allocation (quantity and units)
+   DCB:     Dataset organization (DSORG)
+            Record format (RECFM)
+            Logical record length (LRECL)
+            Block size (BLKSIZE)
+            Key length (KEYLEN)
+            Relative key position (RKP)
+            Options code (OPTCD)
+
+The actual file data is not altered, only the F1 DSCB in the VTOC.
+It is therefore the user's responsibility to ensure that the new
+values are compatible with each other and with the rest of the
+dataset attributes.  Obviously, changing some of these fields could
+render the existing file unusable, and can be modified intelligently
+only if the data in the allocated area is to be completely replaced.
+
+The program is completely controlled by DD cards.  There is no PARM
+or control cards.
+
+   SYSPRINT -- required -- listing of "before" and "after" values
+   of alterable fields, and any error messages.
+
+   Any number of DD cards with DDnames beginning with "DD" can be
+   provided.  These DD cards specify the datasets to be altered, and
+   the fields which are to be substituted.  Appearance of any of the
+   parameters in the list of fields above is interpreted as a
+   request for the specified value to be substituted into the DSCB.
+   Absence of a parameter indicates that the corresponding field is
+   not to be changed.
+
+   All other DD names are ignored.
+
+Restrictions and notes:
+1.  Dataset organization cannot be changed to or from either VSAM or
+    ISAM.  Results are unpredictable if you try.
+
+2.  For a keyed file, RKP + KEYLEN must not exceed the BLKSIZE.
+    If it does, the RKP will not be changed.
+
+3.  Multivolume datasets require a separate DD card for each volume.
+
+4.  Any DD card whose DDname begins with "DD", but does not point to
+    a DASD dataset, is ignored, with an error message on SYSPRINT.
+
+5.  Changing any field of a date-protected DSCB causes an
+    informational message to be written to SYSPRINT, but the change
+    is allowed with no operator WTOR intervention.
+
+6.  Once altered, datasets cannot be passed or deleted; all such
+    DD cards should state DISP=(OLD,KEEP).
+
+Return codes:
+    0.  All requests were processed successfully.
+    4.  At least one field could not be processed.
+    8.  At least one DSCB encounted I/O error on rewrite; results
+         unpredictable.
+   12.  At least one DD card could not be processed.
+   16.  SYSPRINT could not be opened, no requests were processed.
+
+DATOC is in Assembler and must be linked AC=1 in an authorized
+library.
+
+Execution JCL:
+//stepname EXEC PGM=DATOC
+//DD1 DD DSN=...,DISP=OLD,
+//   DCB=...,SPACE=...     (Code values to be changed)
+//SYSPRINT DD SYSOUT=class

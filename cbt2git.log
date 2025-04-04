@@ -1,0 +1,8 @@
+2025-04-04 03:26:55.517005 - Received CBT.V508.FILE1007.PDS from FILE1007.XMI 
+2025-04-04 03:26:55.517998 - Found $$$#DATE.txt (text/plain) in CBT.V508.FILE1007.PDS, moved to PDS/$$$#DATE
+2025-04-04 03:26:55.518140 - Found $$NOTE01.eml (message/rfc822) in CBT.V508.FILE1007.PDS, moved to PDS/$$NOTE01
+2025-04-04 03:26:55.518286 - Found @FIL1007.txt (text/plain) in CBT.V508.FILE1007.PDS, moved to PDS/@FIL1007
+2025-04-04 03:26:55.518408 - Found ASMJCL.jcl (text/plain) in CBT.V508.FILE1007.PDS, moved to PDS/ASMJCL
+2025-04-04 03:26:55.518541 - Found DATOC.bin (application/octet-stream) in CBT.V508.FILE1007.PDS, moved to PDS/DATOC
+2025-04-04 03:26:55.518656 - Found DOC.txt (text/plain) in CBT.V508.FILE1007.PDS, moved to PDS/DOC
+2025-04-04 03:26:55.518786 - Found RUNJCL.jcl (text/plain) in CBT.V508.FILE1007.PDS, moved to PDS/RUNJCL
